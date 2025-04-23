@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulário de Marcenaria</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select { padding: 6px; width: 100%; max-width: 400px; }
+    button { margin-top: 20px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h2>Cadastro de Projeto - Móveis Planejados</h2>
+  <form id="markupForm">
+    <label>Nome do Cliente:
+      <input type="text" name="cliente" required>
+    </label>
+    <label>Valor de Material:
+      <input type="number" name="valor" required>
+    </label>
+    <label>Número do Projeto:
+      <input type="text" name="projeto" required>
+    </label>
+    <label>Percentual de Markup (%):
+      <input type="number" name="markup" required>
+    </label>
+    <label>Possui Indicação?
+      <select name="indicacao">
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+    </label>
+    <label>Possui Arquiteto?
+      <select name="arquiteto">
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
+    </label>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById('markupForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        cliente: form.cliente.value,
+        valor: form.valor.value,
+        projeto: form.projeto.value,
+        markup: form.markup.value,
+        indicacao: form.indicacao.value,
+        arquiteto: form.arquiteto.value
+      };
+
+      await fetch('https://script.google.com/macros/s/AKfycbygtsIyBftFC1xTk-Tn8LevzMnXkzhY53Rj1Pr-NLuw6-mwFYJ3zSDYzamTNiX_hfql/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      alert('Enviado com sucesso!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
